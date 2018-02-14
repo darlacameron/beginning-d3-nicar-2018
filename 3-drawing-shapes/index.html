@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<title>Transforming data</title>
+</head>
+
+<style>
+	body {
+		font-family: "Helvetica Neue", Helvetica, sans-serif;
+		font-size: 14px;
+	}
+	path {
+    fill: none;
+    stroke: #aaa;
+  }
+  .line {
+    stroke-width:2px;
+  }
+  .line.lion{
+    stroke:red;
+  }
+  .line.dog{
+    stroke:gold;
+  }
+  .line.tiger{
+    stroke:orange;
+  }
+
+</style>
+
+<body>
+  <svg width="800" height="100">
+		<path/>
+	</svg>
+  
+	<script src="../d3.v4.min.js"></script>
+  
+	<script>
+		
+    //1 DRAW A BASIC LINE
+    var data = [[0, 50], [100, 80], [200, 40], [300, 60], [400, 30]];
+
+    var lineGenerator = d3.line()
+        //.curve(d3.curveNatural);
+    var pathString = lineGenerator(data);
+
+    d3.select('path')
+      .attr('d', pathString);
+    
+
+    //2 MAKE A LINE CHART WITH OUR OWN DATA
+    d3.csv("data.csv", function(error, data) {
+  		if (error) throw error;
+      //format the data
+      data.forEach(function(d) {
+          d.page = +d.page;
+          d.lion = +d.lion;
+        	d.dog = +d.dog;
+        	d.tiger = +d.tiger;
+      });
+      
+      //lineChart(data,'lion');
+      //lineChart(data,'dog');
+      //lineChart(data,'tiger');
+    });
+    
+    var lineChart = function(data, character){
+      // set the dimensions and margins of the graph
+      var margin = {top: 20, right: 20, bottom: 60, left: 50},
+          width = 200 - margin.left - margin.right,
+          height = 200 - margin.top - margin.bottom;
+    
+      // set the ranges- the space where we will draw
+      var x = d3.scaleLinear().range([0, width]);
+      var y = d3.scaleLinear().range([height, 0]);
+      
+      // define the line
+      var line = d3.line()
+      	//.curve(d3.curveNatural)
+        .x(function(d) { return x(d.page); })
+        .y(function(d) { return y(d[character]); });
+
+      //add a new svg to hold the chart
+      var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      
+      // Scale the domain of the data
+  		x.domain(d3.extent(data, function(d) { return d.page; }));
+  		y.domain([0, d3.max(data, function(d) { return d[character]; })]);
+      
+      // Add the line path
+      svg.append("path")
+          .data([data])
+          .attr("class",  character+" line")
+          .attr("d", line);
+
+      // Add the X Axis
+//       svg.append("g")
+//           .attr("transform", "translate(0," + height + ")")
+//           .call(d3.axisBottom(x));
+
+      // Add the Y Axis
+//       svg.append("g")
+//           .call(d3.axisLeft(y));
+      
+      // And add a label
+//       svg.append("text")             
+//           .attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 15) + ")")
+//           .style("text-anchor", "middle")
+//           .text(character);
+    };
+  
+
+
+	</script>
+</body>
+</html>

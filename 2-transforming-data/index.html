@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+	<title>Transforming data</title>
+</head>
+
+<style>
+	body {
+		font-family: "Helvetica Neue", Helvetica, sans-serif;
+		font-size: 14px;
+	}
+
+	.character {
+		height: 20px;
+		position: relative;
+    display:block;
+    width: 400px;
+	}
+	.character .label {
+		width: 90px;
+		text-align: right;
+	}
+	.character .bar {
+		height: 19px;
+		background-color: red;
+		position: absolute;
+		left: 100px;
+	}
+	.character div {
+		display: inline-block;
+	}
+	
+  
+</style>
+
+<body>
+  
+	<script src="../d3.v4.min.js"></script>
+  
+	<script>
+
+    d3.csv('data.csv', function(err, data) {
+      // 1 MAKE AN ARRAY OF OUR DATA
+       console.debug(data)
+      
+      // 2 .selectAll().enter().append()
+      
+			// https://bost.ocks.org/mike/join/
+			// Instead of telling D3 how to do something, tell D3 what you want. You want the circle elements to correspond to data. You want one circle per datum. Instead of instructing D3 to create circles, then, tell D3 that the selection "circle" should correspond to data. This concept is called the data join:
+
+//       d3.select("body").selectAll("p") //returns empty array of all paragraphs in the document
+//         .data(data) //binds data array ready to the paragraph array
+//         .enter() //gets inside of the <p> array
+//         .append("p") //appends the <p>s to the DOM
+//         .text("Character"); // assigns some text to the <p>s
+     	
+      //3
+       console.debug(d3.selectAll("p"))
+      
+      //4
+//       d3.select("body").selectAll("p")
+//         .data(data)
+//         .enter()
+//         .append("p")
+//       	.text(function(d){return d.name + d.apples})
+      
+      //5
+      drawChart(data);
+    });
+    
+    var drawChart = function(data){
+			
+      //6 SCALES
+      var barWidth = 400;
+      var barScale = 
+         d3.scaleLinear()
+      			.domain([0, 10])
+      			.range([0, barWidth]); 
+      
+      var u = d3.select('body')
+        .selectAll('.person')
+        .data(data, function(d) {
+          return d.name;
+        });
+
+      var entering = u.enter()
+        .append('div')
+        .classed('character', true);
+
+      entering.append('div')
+        .classed('label', true)
+        .text(function(d) {
+          return d.name;
+        });
+
+      entering.append('div')
+        .classed('bar', true);
+
+      entering
+        .merge(u)
+        .select('.bar')
+        //7 fancy transition!  
+      	.transition()
+        .style('width', function(d) {
+          //return d.apples + 'px';
+        	return barScale(d.apples) + 'px';
+        });
+
+      //EXIT RESETS THE SELECT STATEMENT
+      u.exit().remove();
+    }
+	</script>
+</body>
+</html>
