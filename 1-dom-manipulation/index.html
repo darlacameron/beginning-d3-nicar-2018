@@ -18,9 +18,13 @@
 </style>
 
 <body>
+  <p><a href="../">< Back</a></p>
+  <h2>1. DOM manipulation</h2>
 
+	<!-- HERE'S WHAT AN SVG LOOKS LIKE. 
+	WE'LL BE DRAWING MORE OF THESE WITH CODE -->
 	<svg width="500" height="300">
-    <circle cx="50" cy="50" r="20" id="first-circle" />
+    	<circle cx="50" cy="50" r="20" id="first-circle" class='circle'/>
 	</svg>
   
 	<script src="../d3.v4.min.js"></script>
@@ -28,22 +32,24 @@
   
 	<script>
 		// ADD A CIRCLE WITH D3
-// 		d3.select("svg").append("circle")
-//       .attr("id", "second-circle")
-//       .attr("cx", 150)
-//       .attr("cy", 50)
-//       .attr("r", 20);
+		// d3.select("svg").append("circle")
+  //     		.attr("id", "second-circle")
+  //     		.attr("class", "circle")
+  //     		.attr("cx", 150)
+  //     		.attr("cy", 50)
+  //     		.attr("r", 20);
     
-    // AND ANOTHER!
-//     d3.select("svg").append("circle")
-//       .attr("id", "third-circle")
-//       .attr("cx", 250)
-//       .attr("cy", 50)
-//       .attr("r", 30);
+    	// AND ANOTHER CIRCLE, THIS ONE IS BIGGER!
+    	// d3.select("svg").append("circle")
+     //  		.attr("id", "third-circle")
+     //  		.attr("class", "circle")
+     //  		.attr("cx", 250)
+     //  		.attr("cy", 50)
+     //  		.attr("r", 30);
     
-    // DEMO OF HOW D3 COMPARES TO JAVASCRIPT AND JQUERY
-//     console.debug('javascript ', document.getElementById("first-circle"))
-//     console.debug('jquery ', $("#first-circle")[0])
+	    // DEMO OF HOW D3 COMPARES TO JAVASCRIPT AND JQUERY
+	    // console.debug('javascript ', document.getElementById("first-circle"))
+	    // console.debug('jquery ', $("#first-circle")[0])
     
 	</script>
 </body>

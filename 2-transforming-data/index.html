@@ -34,38 +34,40 @@
 </style>
 
 <body>
-  
+  <p><a href="../">< Back</a></p>
+  <h2>2. Transforming data</h2>
+
 	<script src="../d3.v4.min.js"></script>
   
 	<script>
 
     d3.csv('data.csv', function(err, data) {
-      // 1 MAKE AN ARRAY OF OUR DATA
+// 1 MAKE AN ARRAY OF OUR DATA
        console.debug(data)
       
-      // 2 .selectAll().enter().append()
+// 2 .selectAll().enter().append()
       
-			// https://bost.ocks.org/mike/join/
-			// Instead of telling D3 how to do something, tell D3 what you want. You want the circle elements to correspond to data. You want one circle per datum. Instead of instructing D3 to create circles, then, tell D3 that the selection "circle" should correspond to data. This concept is called the data join:
+// https://bost.ocks.org/mike/join/
+// Instead of telling D3 how to do something, tell D3 what you want. For example, you want the circle elements to correspond to data. You want one circle per datum. Instead of instructing D3 to create circles, then, tell D3 that the selection "circle" should correspond to data. This concept is called the data join:
 
-//       d3.select("body").selectAll("p") //returns empty array of all paragraphs in the document
-//         .data(data) //binds data array ready to the paragraph array
-//         .enter() //gets inside of the <p> array
-//         .append("p") //appends the <p>s to the DOM
-//         .text("Character"); // assigns some text to the <p>s
+      // d3.select("body").selectAll("p") //returns empty array of all paragraphs in the document
+      //   .data(data) //binds data array to the paragraph array
+      //   .enter() //gets inside of the paragraph array
+      //   .append("p") //appends the paragraphs to the DOM
+      //   .text("Character"); // assigns some text to the paragraphs
      	
       //3
-       console.debug(d3.selectAll("p"))
+       // console.debug(d3.selectAll("p"))
       
       //4
-//       d3.select("body").selectAll("p")
-//         .data(data)
-//         .enter()
-//         .append("p")
-//       	.text(function(d){return d.name + d.apples})
+      // d3.select("body").selectAll("p")
+      //   .data(data)
+      //   .enter()
+      //   .append("p")
+      // 	.text(function(d){return d.name + d.apples})
       
       //5
-      drawChart(data);
+      //drawChart(data);
     });
     
     var drawChart = function(data){

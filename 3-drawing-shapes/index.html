@@ -13,6 +13,12 @@
     fill: none;
     stroke: #aaa;
   }
+  svg {
+    float:left;
+  }
+  .clear {
+    clear:both;
+  }
   .line {
     stroke-width:2px;
   }
@@ -29,28 +35,34 @@
 </style>
 
 <body>
+  <p><a href="../">< Back</a></p>
+  <h2>3. Drawing shapes</h2>
+
   <svg width="800" height="100">
 		<path/>
 	</svg>
+
+  <div class='clear'></div>
   
 	<script src="../d3.v4.min.js"></script>
   
 	<script>
 		
     //1 DRAW A BASIC LINE
-    var data = [[0, 50], [100, 80], [200, 40], [300, 60], [400, 30]];
+    // var data = [[0, 50], [100, 80], [200, 40], [300, 60], [400, 30]];
 
-    var lineGenerator = d3.line()
-        //.curve(d3.curveNatural);
-    var pathString = lineGenerator(data);
+    // var lineGenerator = d3.line()
+    //     //.curve(d3.curveNatural);
+    // var pathString = lineGenerator(data);
 
-    d3.select('path')
-      .attr('d', pathString);
+    // d3.select('path')
+    //   .attr('d', pathString);
     
 
     //2 MAKE A LINE CHART WITH OUR OWN DATA
     d3.csv("data.csv", function(error, data) {
-  		if (error) throw error;
+  		console.log(data)
+      if (error) throw error;
       //format the data
       data.forEach(function(d) {
           d.page = +d.page;
@@ -59,9 +71,9 @@
         	d.tiger = +d.tiger;
       });
       
-      //lineChart(data,'lion');
-      //lineChart(data,'dog');
-      //lineChart(data,'tiger');
+     //lineChart(data,'lion');
+     //lineChart(data,'dog');
+     //lineChart(data,'tiger');
     });
     
     var lineChart = function(data, character){
